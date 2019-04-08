@@ -1,0 +1,30 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.example.protobuf.company;
+
+message gRPCCompany {
+  int32 id = 1;
+  string name = 2;
+  string address = 3;
+}
+
+message CompanyRequest {
+  int32 id = 1;
+  string name = 2;
+  string address = 3;
+}
+
+message CompanyResponse {
+  gRPCCompany company = 1;
+}
+
+message CompanyResponses {
+  repeated gRPCCompany company = 1;
+}
+
+
+service CompanyService {
+  rpc addCompany(CompanyRequest) returns (CompanyResponse);
+  rpc getCompany(CompanyRequest) returns (CompanyResponse);
+  rpc getCompanies(CompanyRequest) returns (CompanyResponses);
+}
