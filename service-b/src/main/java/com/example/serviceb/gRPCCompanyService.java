@@ -7,18 +7,15 @@ import com.example.protobuf.company.CompanyServiceGrpc.CompanyServiceImplBase;
 import com.example.protobuf.company.gRPCCompany;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.log4j.Log4j2;
+import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Log4j2
+@GrpcService
 public class gRPCCompanyService extends CompanyServiceImplBase {
 
-  final
-  CompanyService companyService;
-
   @Autowired
-  public gRPCCompanyService(CompanyService companyService) {
-    this.companyService = companyService;
-  }
+  CompanyService companyService;
 
   @Override
   public void addCompany(CompanyRequest request, StreamObserver<CompanyResponse> responseObserver) {

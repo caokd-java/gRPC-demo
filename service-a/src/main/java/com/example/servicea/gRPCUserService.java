@@ -13,21 +13,18 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.log4j.Log4j2;
+import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Log4j2
+@GrpcService
 public class gRPCUserService extends UserServiceImplBase {
 
   ManagedChannel channelCompany = ManagedChannelBuilder.forAddress("localhost", 1807).usePlaintext().build();
   CompanyServiceGrpc.CompanyServiceBlockingStub stubCompany = CompanyServiceGrpc.newBlockingStub(channelCompany);
 
-  final
-  UserService userService;
-
   @Autowired
-  public gRPCUserService(UserService userService) {
-    this.userService = userService;
-  }
+  UserService userService;
 
   @Override
   public void addUser(UserRequest request, StreamObserver<UserResponse> responseObserver) {
